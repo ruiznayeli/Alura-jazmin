@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoAgro Inteligente - Agrinho Sustentável</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#e8f5e9;
+color:#222;
+transition:0.5s;
+}
+
+header{
+background:linear-gradient(135deg,#2e7d32,#66bb6a);
+color:white;
+text-align:center;
+padding:40px;
+animation:entrada 2s;
+}
+
+@keyframes entrada{
+from{
+opacity:0;
+transform:translateY(-40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+section{
+max-width:1000px;
+margin:20px auto;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h2{
+color:#2e7d32;
+margin-bottom:15px;
+}
+
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+input{
+padding:10px;
+margin:10px 0;
+width:100%;
+}
+
+ul{
+padding-left:20px;
+}
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.dark section{
+background:#1f1f1f;
+color:white;
+}
+
+.dark h2{
+color:#81c784;
+}
+
+.certificado{
+margin-top:20px;
+padding:25px;
+border:6px solid green;
+background:#f5fff5;
+border-radius:15px;
+text-align:center;
+}
+
+.dark .certificado{
+background:#263238;
+}
+
+footer{
+text-align:center;
+padding:20px;
+font-size:18px;
+}
+
+#resultadoQuiz{
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+
+<h1>🌱 EcoAgro Inteligente</h1>
+
+<p>
+Tecnologia, Educação e Sustentabilidade para um Futuro Melhor
+</p>
+
+<button onclick="alternarTema()">
+🌙 Modo Escuro
+</button>
+
+</header>
+
+<section>
+
+<h2>🌍 Mensagem Sustentável do Dia</h2>
+
+<p id="frase"></p>
+
+</section>
+
+<section>
+
+<h2>💧 Calculadora de Economia de Água</h2>
+
+<p>
+Digite quantos litros de água sua plantação utiliza:
+</p>
+
+<input type="number" id="agua">
+
+<button onclick="calcularAgua()">
+Calcular Economia
+</button>
+
+<h3 id="resultadoAgua"></h3>
+
+</section>
+
+<section>
+
+<h2>📚 Por que economizar água?</h2>
+
+<p>
+A água é um recurso essencial para a agricultura.
+Utilizar tecnologias sustentáveis ajuda a produzir alimentos sem desperdício.
+</p>
+
+<br>
+
+<ul>
+<li>💧 Irrigação por gotejamento reduz perdas.</li>
+<li>🌧️ Captação da água da chuva diminui o consumo.</li>
+<li>📱 Sensores monitoram a umidade do solo.</li>
+<li>♻️ Reaproveitamento de água protege o meio ambiente.</li>
+<li>🌱 Agricultura sustentável preserva recursos para o futuro.</li>
+</ul>
+
+</section>
+
+<section>
+
+<h2>📊 Benefícios da Agricultura Sustentável</h2>
+
+<canvas id="grafico"></canvas>
+
+</section>
+
+<section>
+
+<h2>🔊 Sons da Natureza</h2>
+
+<p>
+Ouça sons relaxantes enquanto aprende.
+</p>
+
+<audio id="natureza" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="tocarSom()">
+▶️ Tocar / Pausar Som
+</button>
+
+</section>
+
+<section>
+
+<h2>🧠 Quiz Agrinho Sustentável</h2>
+
+<label>Digite seu nome:</label>
+
+<input type="text" id="nome">
+
+<p>1. Qual sistema economiza mais água?</p>
+<input type="radio" name="q1" value="errado"> Irrigação sem controle<br>
+<input type="radio" name="q1" value="certo"> Irrigação por gotejamento<br><br>
+
+<p>2. O que ajuda o meio ambiente?</p>
+<input type="radio" name="q2" value="certo"> Reciclagem<br>
+<input type="radio" name="q2" value="errado"> Desperdício<br><br>
+
+<p>3. A água da chuva pode ser:</p>
+<input type="radio" name="q3" value="certo"> Armazenada para uso posterior<br>
+<input type="radio" name="q3" value="errado"> Descartada<br><br>
+
+<p>4. Plantar árvores ajuda porque:</p>
+<input type="radio" name="q4" value="certo"> Protege o solo<br>
+<input type="radio" name="q4" value="errado"> Aumenta a erosão<br><br>
+
+<p>5. O solo saudável:</p>
+<input type="radio" name="q5" value="certo"> Retém água melhor<br>
+<input type="radio" name="q5" value="errado"> Perde água mais rápido<br><br>
+
+<p>6. Agricultura sustentável significa:</p>
+<input type="radio" name="q6" value="certo"> Produzir respeitando a natureza<br>
+<input type="radio" name="q6" value="errado"> Produzir sem preocupação ambiental<br><br>
+
+<p>7. Sensores agrícolas servem para:</p>
+<input type="radio" name="q7" value="certo"> Monitorar a plantação<br>
+<input type="radio" name="q7" value="errado"> Gastar recursos<br><br>
+
+<p>8. O desperdício de água:</p>
+<input type="radio" name="q8" value="errado"> É positivo<br>
+<input type="radio" name="q8" value="certo"> Deve ser evitado<br><br>
+
+<p>9. Compostagem é:</p>
+<input type="radio" name="q9" value="certo"> Produção de adubo orgânico<br>
+<input type="radio" name="q9" value="errado"> Queima de lixo<br><br>
+
+<p>10. O objetivo do Agrinho é:</p>
+<input type="radio" name="q10" value="certo"> Educação e sustentabilidade<br>
+<input type="radio" name="q10" value="errado"> Desperdício de recursos<br><br>
+
+<button onclick="corrigirQuiz()">
+🏆 Finalizar Quiz
+</button>
+
+<div id="resultadoQuiz"></div>
+
+<div id="certificado"></div>
+
+</section>
+
+<footer>
+
+🌿 Projeto Agrinho Sustentável 2026
+
+</footer>
+
+<script>
+
+const frases = [
+"Cada gota economizada ajuda o planeta.",
+"A sustentabilidade começa com pequenas atitudes.",
+"Produzir alimentos e preservar a natureza podem caminhar juntos.",
+"Cuidar do solo é cuidar do futuro.",
+"A água é um recurso precioso."
+];
+
+document.getElementById("frase").innerHTML =
+frases[Math.floor(Math.random()*frases.length)];
+
+function alternarTema(){
+document.body.classList.toggle("dark");
+}
+
+function calcularAgua(){
+
+let agua =
+Number(document.getElementById("agua").value);
+
+let economia = agua * 0.30;
+
+document.getElementById("resultadoAgua").innerHTML =
+`🌱 Com irrigação inteligente você pode economizar aproximadamente ${economia.toFixed(0)} litros de água.`;
+}
+
+function tocarSom(){
+
+const audio =
+document.getElementById("natureza");
+
+if(audio.paused){
+audio.play();
+}
+else{
+audio.pause();
+}
+}
+
+new Chart(
+document.getElementById('grafico'),
+{
+type:'bar',
+
+data:{
+labels:[
+'Água',
+'Energia',
+'Resíduos'
+],
+
+datasets:[{
+label:'Economia (%)',
+data:[40,25,35],
+
+backgroundColor:[
+'#2196f3',
+'#ff9800',
+'#4caf50'
+]
+}]
+},
+
+options:{
+responsive:true
+}
+}
+);
+
+function corrigirQuiz(){
+
+let pontos = 0;
+
+for(let i=1;i<=10;i++){
+
+let resposta =
+document.querySelector(
+`input[name="q${i}"]:checked`
+);
+
+if(!resposta){
+alert("Responda todas as perguntas.");
+return;
+}
+
+if(resposta.value==="certo"){
+pontos++;
+}
+}
+
+let nome =
+document.getElementById("nome").value;
+
+if(nome===""){
+nome="Participante";
+}
+
+let nivel="";
+
+if(pontos>=9){
+nivel="🌟 Mestre da Sustentabilidade";
+}
+else if(pontos>=7){
+nivel="🌱 Guardião Ambiental";
+}
+else{
+nivel="🍃 Aprendiz Sustentável";
+}
+
+document.getElementById("resultadoQuiz").innerHTML =
+`Você acertou ${pontos} de 10 questões.`;
+
+document.getElementById("certificado").innerHTML =
+
+`<div class="certificado">
+
+<h1>🏆 CERTIFICADO OFICIAL</h1>
+
+<h2>${nome}</h2>
+
+<p>
+Concluiu com sucesso o Quiz Agrinho Sustentável.
+</p>
+
+<h2>${nivel}</h2>
+
+<p>
+Pontuação: ${pontos}/10
+</p>
+
+<p>
+Demonstrou conhecimento sobre preservação da água,
+agricultura sustentável e cuidado com o meio ambiente.
+</p>
+
+<p>
+🌱 Juntos construímos um futuro mais sustentável! 🌱
+</p>
+
+</div>`;
+}
+
+</script>
+
+</body>
+</html>
